@@ -22,18 +22,17 @@ export default Vue.extend({
   components: {
     Logo
   },
+  asyncData: async ({ $axios }) => {
+    const res = await $axios.get('/api')
+    return {
+      title: 'DFLAB初始化',
+      result: res.data
+    }
+  },
   data() {
     return {
       title: '',
       cate: []
-    }
-  },
-  asyncData: async ({ $axios }) => {
-    const res = await $axios.get('/api')
-    console.log(res)
-    return {
-      title: 'DFLAB初始化',
-      result: res.data
     }
   },
 
@@ -41,7 +40,6 @@ export default Vue.extend({
     async getData() {
       const res = await this.$axios.get('/api/list')
       this.cate = [...this.cate, ...res.data] as any
-      console.log(res)
     }
   }
 })

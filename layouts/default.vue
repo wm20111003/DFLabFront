@@ -3,10 +3,10 @@
     <el-container style="height: 100vh; border: 1px solid #eee">
       <el-menu
         :collapse="isCollapse"
-        default-active="1-4-1"
         class="el-menu-vertical-demo"
         @open="handleOpen"
         @close="handleClose"
+        :router="true"
       >
         <el-submenu index="1">
           <template slot="title">
@@ -26,9 +26,9 @@
             <el-menu-item index="1-4-1">选项1</el-menu-item>
           </el-submenu>
         </el-submenu>
-        <el-menu-item index="2">
-          <i class="el-icon-menu"></i>
-          <span slot="title">导航二</span>
+        <el-menu-item index="user">
+          <i class="el-icon-user"></i>
+          <span slot="title">用户中心</span>
         </el-menu-item>
         <el-menu-item index="3" disabled>
           <i class="el-icon-document"></i>
@@ -39,13 +39,8 @@
           <span slot="title">导航四</span>
         </el-menu-item>
       </el-menu>
-
       <el-container>
         <el-header style="text-align: right; font-size: 12px">
-          <!-- <el-radio-group v-model="isCollapse" style="margin-bottom: 20px;">
-            <el-radio-button :label="false">展开</el-radio-button>
-            <el-radio-button :label="true">收起</el-radio-button>
-          </el-radio-group>-->
           <div class="breadcrumb">
             <span class="breadcrumb-switch" @click="toggleSide">
               <i v-if="isCollapse" class="el-icon-s-unfold list-icon"></i>
@@ -57,7 +52,6 @@
                 <a href="/">活动管理</a>
               </el-breadcrumb-item>
               <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-              <el-breadcrumb-item>活动详情</el-breadcrumb-item>
             </el-breadcrumb>
           </div>
         </el-header>
@@ -91,8 +85,8 @@ export default Vue.extend({
 </script>
 <style>
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
