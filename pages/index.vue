@@ -22,8 +22,8 @@ export default Vue.extend({
   components: {
     Logo
   },
-  asyncData: async ({ $axios }) => {
-    const res = await $axios.get('/api')
+  asyncData: async (ctx: any) => {
+    const res = await ctx.$axios.get('/api')
     return {
       title: 'DFLAB初始化',
       result: res.data
@@ -37,7 +37,7 @@ export default Vue.extend({
   },
 
   methods: {
-    async getData() {
+    async getData(): Promise<void> {
       const res = await this.$axios.get('/api/list')
       this.cate = [...this.cate, ...res.data] as any
     }

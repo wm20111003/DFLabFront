@@ -8,8 +8,8 @@ export default Vue.extend({
   components: {
     List
   },
-  asyncData: async ({ $axios }) => {
-    const res = await $axios.get('/api/user/list')
+  asyncData: async (ctx: any) => {
+    const res = await ctx.$axios.get('/api/user/list')
     return {
       tableData: res.data
     }

@@ -28,11 +28,11 @@ export default <Configuration>{
   /*
    ** Global CSS
    */
-  css: ['element-ui/lib/theme-chalk/index.css'],
+  css: ['element-ui/lib/theme-chalk/index.css', 'element-ui/lib/theme-chalk/display.css'],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['@/plugins/element-ui'],
+  plugins: ['@/plugins/element-ui', '@/plugins/axios-plugin'],
   /*
    ** Nuxt.js dev-modules
    */
