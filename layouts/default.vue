@@ -42,17 +42,30 @@
       <el-container>
         <el-header style="text-align: right; font-size: 12px">
           <div class="breadcrumb">
-            <span class="breadcrumb-switch" @click="toggleSide">
-              <i v-if="isCollapse" class="el-icon-s-unfold list-icon"></i>
-              <i v-else class="el-icon-s-fold list-icon"></i>
-            </span>
-            <el-breadcrumb separator="/">
-              <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-              <el-breadcrumb-item>
-                <a href="/">活动管理</a>
-              </el-breadcrumb-item>
-              <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-            </el-breadcrumb>
+            <div class="breadcrumb-left">
+              <span class="breadcrumb-switch" @click="toggleSide">
+                <i v-if="isCollapse" class="el-icon-s-unfold list-icon"></i>
+                <i v-else class="el-icon-s-fold list-icon"></i>
+              </span>
+              <el-breadcrumb separator="/">
+                <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+                <el-breadcrumb-item>
+                  <a href="/">活动管理</a>
+                </el-breadcrumb-item>
+                <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+              </el-breadcrumb>
+            </div>
+            <div>
+              <el-dropdown v-if="!!getUserInfo">
+                <span class="el-dropdown-link">
+                  {{ getUserInfo.username }}<i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item @click.native="handleClick">退出登录</el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+              <div v-else>登录</div>
+            </div>
           </div>
         </el-header>
         <el-main>
@@ -64,13 +77,22 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 export default Vue.extend({
   data() {
     return {
-      isCollapse: true
+      isCollapse: true,
+      user: null
+    }
+  },
+  computed: {
+    getUserInfo() {
+      console.log(this.$store.state.auth.user)
+      return this.$store.state.auth.user
     }
   },
   methods: {
+    ...mapActions('auth', ['logout']),
     handleOpen(key: string, keyPath: string) {
       console.log(key, keyPath)
     },
@@ -79,6 +101,12 @@ export default Vue.extend({
     },
     toggleSide() {
       this.isCollapse = !this.isCollapse
+    },
+    handleClick(args: any) {
+      this.logout()
+      this.$router.push({
+        name: 'login'
+      })
     }
   }
 })
@@ -111,6 +139,7 @@ html {
   height: 60px;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 }
 .breadcrumb-switch {
   padding: 5px 10px;
@@ -119,5 +148,9 @@ html {
 .list-icon {
   font-size: 18px;
   color: #515a6d;
+}
+.breadcrumb-left {
+  display: flex;
+  align-items: center;
 }
 </style>

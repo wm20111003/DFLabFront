@@ -23,6 +23,7 @@ export default Vue.extend({
     Logo
   },
   asyncData: async (ctx: any) => {
+    ctx.redirect('/login')
     const res = await ctx.$axios.get('/api')
     return {
       title: 'DFLAB初始化',

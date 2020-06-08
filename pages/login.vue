@@ -53,6 +53,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
+import { mapState, mapActions, mapGetters, mapMutations } from 'vuex'
 export default Vue.extend({
   layout: 'full',
   props: {
@@ -119,13 +120,17 @@ export default Vue.extend({
     }
   },
   methods: {
+    ...mapActions('auth', ['login']),
     async loginSubmit(): Promise<void> {
       const res = await this.$axios.post('/api/auth/login', {
         username: this.formData.username,
         password: this.formData.password
       })
       if (res.data.status === 200) {
-        location.href = '/user'
+        await this.login(res.data.user)
+        this.$router.push({
+          name: 'user'
+        })
       } else {
         this.$message({
           showClose: true,
