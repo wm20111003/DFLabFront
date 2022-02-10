@@ -20,7 +20,7 @@
     "cross-env": "^5.2.0",
     "element-ui": "^2.4.11",
     "fastify": "^1.13.3",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "nuxt": "^2.0.0",
     "qs": "^6.9.4",
     "sass-loader": "^7.0.1"
